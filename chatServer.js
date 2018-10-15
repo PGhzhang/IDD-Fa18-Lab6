@@ -30,8 +30,8 @@ io.on('connect', function(socket) {
   var questionNum = 0; // keep count of question, used for IF condition.
   socket.on('loaded', function() { // we wait until the client has loaded and contacted us that it is ready to go.
 
-    socket.emit('answer', "Hey, hello I am \"___*-\" a simple chat bot example."); //We start with the introduction;
-    setTimeout(timedQuestion, 5000, socket, "What is your name?"); // Wait a moment and respond with a question.
+    socket.emit('answer', "Hi! I’m here to find you some good places for dinner."); //We start with the introduction;
+    setTimeout(timedQuestion, 2000, socket, "What is your name?"); // Wait a moment and respond with a question.
 
   });
   socket.on('message', (data) => { // If we get a new message from the client we process it;
@@ -51,44 +51,74 @@ function bot(data, socket, questionNum) {
 
   /// These are the main statments that make up the conversation.
   if (questionNum == 0) {
-    answer = 'Hello ' + input + ' :-)'; // output response
-    waitTime = 5000;
-    question = 'How old are you?'; // load next question
+    answer = 'Hi ' + input + '! Let\'s get started.'; // output response
+    waitTime = 2000;
+    question = 'Are you eating alone or with friends?'; // load next question
+
   } else if (questionNum == 1) {
-    answer = 'Really, ' + input + ' years old? So that means you were born in: ' + (2018 - parseInt(input)); // output response
-    waitTime = 5000;
-    question = 'Where do you live?'; // load next question
-  } else if (questionNum == 2) {
-    answer = 'Cool! I have never been to ' + input + '.';
-    waitTime = 5000;
-    question = 'Whats your favorite color?'; // load next question
-  } else if (questionNum == 3) {
-    answer = 'Ok, ' + input + ' it is.';
-    socket.emit('changeBG', input.toLowerCase());
-    waitTime = 5000;
-    question = 'Can you still read the font?'; // load next question
-  } else if (questionNum == 4) {
-    if (input.toLowerCase() === 'yes' || input === 1) {
-      answer = 'Perfect!';
-      waitTime = 5000;
-      question = 'Whats your favorite place?';
-    } else if (input.toLowerCase() === 'no' || input === 0) {
-      socket.emit('changeFont', 'white'); /// we really should look up the inverse of what we said befor.
-      answer = ''
-      question = 'How about now?';
-      waitTime = 0;
-      questionNum--; // Here we go back in the question number this can end up in a loop
-    } else {
-      question = 'Can you still read the font?'; // load next question
-      answer = 'I did not understand you. Could you please answer "yes" or "no"?'
-      questionNum--;
-      waitTime = 5000;
+    if(input.toLowerCase() == 'alone'){
+      answer = 'That\'s sad. You should never eat alone.';
+      waitTime = 2000;
+      question = 'Are you feeling like veggies or meat?'; // load next question
     }
-    // load next question
-  } else {
-    answer = 'I have nothing more to say!'; // output response
-    waitTime = 0;
-    question = '';
+    else if (input.toLowerCase() == 'with friends' || input.toLowerCase() == 'friends') {
+      answer = 'Sounds fun!';
+      waitTime = 2000;
+      question = 'Are you feeling like veggies or meat?'; // load next question
+    }else{
+      answer = 'Sorry I did not understand.';
+      question = 'Are you eating alone or with friends?';
+      questionNum --;
+      waittime = 2000;
+    }
+
+  } else if (questionNum == 2) {
+    if (input.toLowerCase() =='veggies'){
+      answer = 'I like veggies too.';
+      waitTime = 2000;
+      question = 'Which one do you prefer: Salads or Stir-fry?'; // load next question
+    }
+    else if (input.toLowerCase() =='meat') {
+      answer = 'OMG, I\'m thinking about meat too. ';
+      waitTime = 2000;
+      question = 'Which one do you prefer: Steak or Seafood?'; // load next question
+    }
+    else{
+      answer = 'Do you have something in mind? Type it in!';
+      waitTIme = 2000;
+      questions = 'What would you like for dinner?';
+    }
+
+  } else if (questionNum == 3) {
+    answer = input + ' sounds good!';
+    waitTime = 2000;
+    question = 'How much do you plan spend on dinner? '; // load next question
+
+  } else if (questionNum == 4) {
+      answer = 'Got it.';
+      waitTime = 2000;
+      question = 'Tell me which location are you interested in so I can find some awesome spots around.';
+
+  }
+
+  else {
+    if (input.toLowerCase() == 'roosevelt island'){
+      answer = 'On no. There\’s nothing good on Roosevelt Island. I’m sorry for you.';
+      socket.emit('changeBG', '#808080');
+      socket.emit('changeFont', 'white');
+      waittime = 0;
+      question = '';
+    }else if(input.toLowerCase() == 'manhattan'){
+      answer = 'There are too many good places on Manhattan. Feel free to try any one.';
+      socket.emit('changeBG', '#f37736');
+      socket.emit('changeFont', 'white');
+      waittime = 0;
+      question = '';
+    }else{
+      answer = 'Sorry. I have no knowledge about ' + input + ' now.'
+      waittime = 0;
+      question = '';
+    }
   }
 
 
