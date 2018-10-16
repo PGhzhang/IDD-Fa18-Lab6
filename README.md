@@ -10,6 +10,8 @@
 
 I made a chatbot to recommend dinner ideas. I modified the questions so that they lead users to narrow down dinner options. 
 
+[Code Link](https://github.com/PGhzhang/IDD-Fa18-Lab6/blob/master/chatServer.js)
+
 ```
  /// These are the main statments that make up the conversation.
   if (questionNum == 0) {
