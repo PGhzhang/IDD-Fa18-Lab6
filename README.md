@@ -89,5 +89,7 @@ I made a chatbot to recommend dinner ideas. I modified the questions so that the
 
 **Using a phone or other video device, record someone trying out your ChatBot. Upload that video to this repository and link to it here!**
 
+[![](http://img.youtube.com/vi/bU4ILRSrvsU/0.jpg)](http://www.youtube.com/watch?v=bU4ILRSrvsU "")
+
 ---
 Starter code by [David Goedicke](mailto:da.goedicke@gmail.com), closely based on work by [Nikolas Martelaro](mailto:nmartelaro@gmail.com) and [Captain Anonymous](https://codepen.io/anon/pen/PEVYXz), who forked original work by [Ian Tairea](https://codepen.io/mrtairea/pen/yJapwv).
